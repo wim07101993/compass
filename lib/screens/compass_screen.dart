@@ -1,3 +1,4 @@
+import 'package:compass/widget/rotating_compass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 
@@ -21,7 +22,10 @@ class CompassScreen extends StatelessWidget {
         }
 
         double direction = snapshot.data.heading;
-        return Text('$direction');
+        return Padding(
+          padding: const EdgeInsets.all(32),
+          child: RotatingCompass(direction: direction),
+        );
       },
     );
   }
