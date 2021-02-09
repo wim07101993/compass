@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class RotatingCompass extends StatelessWidget {
+class RotatingCompass extends StatefulWidget {
   const RotatingCompass({
     Key key,
     this.direction,
@@ -10,6 +10,11 @@ class RotatingCompass extends StatelessWidget {
 
   final double direction;
 
+  @override
+  _RotatingCompassState createState() => _RotatingCompassState();
+}
+
+class _RotatingCompassState extends State<RotatingCompass> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -22,11 +27,15 @@ class RotatingCompass extends StatelessWidget {
           color: Colors.black,
           shape: BoxShape.circle,
         ),
-        child: Transform.rotate(
-          angle: ((direction ?? 0) * (pi / 180) * -1),
-          child: Image.asset(
-            'assets/compass.png',
-            fit: BoxFit.cover,
+        child: TweenAnimationBuilder(
+          duration: const Duration(milliseconds: 100),
+          tween: Tween(end: (widget.direction ?? 0) * (pi / 180) * -1),
+          builder: (context, double value, widget) => Transform.rotate(
+            angle: value,
+            child: Image.asset(
+              'assets/compass.png',
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
